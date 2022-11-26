@@ -5,6 +5,9 @@ import * as React from "react";
 import Image from "next/image";
 import Head from "next/head";
 
+import Container from "@mui/material/Container";
+import AdbIcon from "@mui/icons-material/Adb";
+
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
@@ -39,6 +42,39 @@ const drawerWidth = 240;
 function Physics() {
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
+
+    const [state, setState] = React.useState({
+        right: false,
+    });
+    const toggleDrawer =
+        (anchor: Anchor, open: boolean) =>
+        (event: React.KeyboardEvent | React.MouseEvent) => {
+            if (
+                event.type === "keydown" &&
+                ((event as React.KeyboardEvent).key === "Tab" ||
+                    (event as React.KeyboardEvent).key === "Shift")
+            ) {
+                return;
+            }
+
+            setState({ ...state, [anchor]: open });
+        };
+        const list = (anchor: Anchor) => (
+            <Box
+                sx={{ auto: 250, marginTop: 10 }}
+                role="presentation"
+                onClick={toggleDrawer(anchor, false)}
+                onKeyDown={toggleDrawer(anchor, false)}
+            >
+                <List>
+                    <ListItem key={"Preferences"} disablePadding>
+                    <ListItemButton>
+                    <ListItemText primary={"Preferences"} />
+                    </ListItemButton>
+                    </ListItem>
+                    </List>
+            </Box>
+        );
     return (
         <Box
             className={styles.container}
@@ -63,12 +99,90 @@ function Physics() {
                 </Head>
 
                 <main className={styles.main}>
+                <AppBar position="static">
+                        <Container maxWidth="xl">
+                            <Toolbar>
+                                <AdbIcon
+                                    sx={{
+                                        display: { xs: "none", md: "flex" },
+                                        mr: 1,
+                                    }}
+                                />
+                                <Typography
+                                    variant="h6"
+                                    noWrap
+                                    component="a"
+                                    href="/"
+                                    sx={{
+                                        mr: 2,
+                                        display: { xs: "none", md: "flex" },
+                                        fontFamily: "monospace",
+                                        fontWeight: 700,
+                                        letterSpacing: ".3rem",
+                                        color: "inherit",
+                                        textDecoration: "none",
+                                    }}
+                                >
+                                    Cram Tracker - Tools for your cramming
+                                    sessions
+                                </Typography>
+                                <Box
+                                    sx={{
+                                        flexGrow: 1,
+                                        display: { xs: "flex", md: "none" },
+                                    }}
+                                ></Box>
+                                <Box
+                                    sx={{
+                                        flexGrow: 1,
+                                        display: { xs: "none", md: "flex" },
+                                    }}
+                                ></Box>
+                                <IconButton
+                                    sx={{ ml: 1 }}
+                                    onClick={colorMode.toggleColorMode}
+                                    color="inherit"
+                                >
+                                    {theme.palette.mode === "dark" ? (
+                                        <NightlightIcon />
+                                    ) : (
+                                        <LightModeIcon />
+                                    )}
+                                </IconButton>
+                                <div>
+                                    {(["right"] as const).map((anchor) => (
+                                        <React.Fragment key={anchor}>
+                                            <Button
+                                                onClick={toggleDrawer(
+                                                    anchor,
+                                                    true
+                                                )}
+                                            >
+                                                button
+                                            </Button>
+                                            
+                                            <Drawer
+                                                anchor={anchor}
+                                                open={state[anchor]}
+                                                onClose={toggleDrawer(
+                                                    anchor,
+                                                    false
+                                                )}
+                                            >
+                                                {list(anchor)}
+                                            </Drawer>
+                                        </React.Fragment>
+                                    ))}
+                                </div>
+                            </Toolbar>
+                        </Container>
+                    </AppBar>
                     <Typography
                         variant="h1"
                         sx={{
                             height: 100,
                             marginTop: 10,
-                            
+                            marginLeft: 20,
                         }}
                     >
                         Better Physics
@@ -146,21 +260,6 @@ function Physics() {
                             </Box>
                         </Drawer>
                     </Box>
-                    {/* //toggle theme button */}
-                    {theme.palette.mode} mode
-                    <IconButton
-                        sx={{
-                            ml: 1,
-                        }}
-                        onClick={colorMode.toggleColorMode}
-                        color="inherit"
-                    >
-                        {theme.palette.mode === "dark" ? (
-                            <NightlightIcon />
-                        ) : (
-                            <LightModeIcon />
-                        )}
-                    </IconButton>
                 </main>
             </div>
         </Box>

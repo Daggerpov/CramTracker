@@ -7,13 +7,16 @@ import Head from "next/head";
 
 import Container from "@mui/material/Container";
 
+import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import LightModeTwoToneIcon from '@mui/icons-material/LightModeTwoTone';
 import NightlightIcon from "@mui/icons-material/Nightlight";
+import NightlightTwoToneIcon from '@mui/icons-material/NightlightTwoTone';
 import { Button } from "@material-tailwind/react";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -33,6 +36,7 @@ import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import DescriptionTwoToneIcon from "@mui/icons-material/DescriptionTwoTone";
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 
 import styles from "../styles/Home.module.css";
 
@@ -65,18 +69,15 @@ function Dashboard() {
 
     const list = (anchor: Anchor) => (
         <Box
-            sx={{ auto: 250 }}
+            sx={{ auto: 250, marginTop: 10 }}
             role="presentation"
             onClick={toggleDrawer(anchor, false)}
             onKeyDown={toggleDrawer(anchor, false)}
         >
             <List>
-                <ListItem key={"Home"} disablePadding>
+                <ListItem key={"Preferences"} disablePadding>
                 <ListItemButton>
-                <ListItemIcon>
-                <HomeTwoToneIcon />
-                </ListItemIcon>
-                <ListItemText primary={"Home"} />
+                <ListItemText primary={"Preferences"} />
                 </ListItemButton>
                 </ListItem>
                 </List>
@@ -146,27 +147,28 @@ function Dashboard() {
                                     }}
                                 ></Box>
                                 <IconButton
-                                    sx={{ ml: 1 }}
+                                    sx={{ ml: 1}}
                                     onClick={colorMode.toggleColorMode}
                                     color="inherit"
                                 >
                                     {theme.palette.mode === "dark" ? (
-                                        <NightlightIcon />
+                                        <NightlightTwoToneIcon />
                                     ) : (
-                                        <LightModeIcon />
+                                        <LightModeTwoToneIcon />
                                     )}
                                 </IconButton>
                                 <div>
                                     {(["right"] as const).map((anchor) => (
                                         <React.Fragment key={anchor}>
-                                            <Button
+                                            <IconButton
                                                 onClick={toggleDrawer(
                                                     anchor,
                                                     true
                                                 )}
                                             >
-                                                {anchor}
-                                            </Button>
+                                                <MenuTwoToneIcon />
+                                            </IconButton>
+
                                             <Drawer
                                                 anchor={anchor}
                                                 open={state[anchor]}
@@ -219,7 +221,10 @@ function Dashboard() {
                                     </ListItem>
                                 </List>
                                 <List>
-                                    <ListItem key={"English Writing"} disablePadding>
+                                    <ListItem
+                                        key={"English Writing"}
+                                        disablePadding
+                                    >
                                         <Link
                                             href={{
                                                 pathname:
