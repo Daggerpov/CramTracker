@@ -128,3 +128,9 @@
     filter: invert(1);
   }
 }
+
+/* Subject Pages */
+.physTitle{
+  position: fixed;
+  top: 100;
+}
