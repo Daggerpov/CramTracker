@@ -5,22 +5,19 @@ import styles from "../styles/Home.module.css";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 
-export default function Home() {
+export default function Dashboard() {
     return (
         <div className={styles.container}>
             <Head>
                 <title>Cram Tracker</title>
                 <meta
-                    name="description"
+                    name="Cram Tracker - A tool for scheduling and tracking your cramming sessions"
                     content="Providing crammers with tools and adaptive metrics to help them schedule and get through their assignments with ease."
                 />
             </Head>
 
-            <main className={styles.main} style={{ marginLeft: "150px" }}>
+            <main className={styles.main}>
                 <h1 className={styles.title}>Cram Tracker</h1>
-                <div style={{ width: "95%" }}>
-                    <div style={{ display: "inline-block" }}></div>
-                </div>
             </main>
         </div>
     );
