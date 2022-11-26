@@ -8,32 +8,7 @@ import Head from "next/head";
 import Container from "@mui/material/Container";
 
 import AdbIcon from "@mui/icons-material/Adb";
-import ToolTip from "@mui/material/ToolTip";
-import IconButton from "@mui/material/IconButton";
-import Box from "@mui/material/Box";
-import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import NightlightIcon from "@mui/icons-material/Nightlight";
-import { Button } from "@material-tailwind/react";
-import Drawer from "@mui/material/Drawer";
-import AppBar from "@mui/material/AppBar";
-import CssBaseline from "@mui/material/CssBaseline";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import ScienceTwoToneIcon from '@mui/icons-material/ScienceTwoTone';
-import SportsHandballTwoToneIcon from '@mui/icons-material/SportsHandballTwoTone';
-import CalculateTwoToneIcon from '@mui/icons-material/CalculateTwoTone';
-import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
-import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
-
+import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
@@ -51,22 +26,63 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import ScienceTwoToneIcon from '@mui/icons-material/ScienceTwoTone';
-import SportsHandballTwoToneIcon from '@mui/icons-material/SportsHandballTwoTone';
-import CalculateTwoToneIcon from '@mui/icons-material/CalculateTwoTone';
-import HomeTwoToneIcon from '@mui/icons-material/HomeTwoTone';
-import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
+import ScienceTwoToneIcon from "@mui/icons-material/ScienceTwoTone";
+import SportsHandballTwoToneIcon from "@mui/icons-material/SportsHandballTwoTone";
+import CalculateTwoToneIcon from "@mui/icons-material/CalculateTwoTone";
+import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
+import DescriptionTwoToneIcon from "@mui/icons-material/DescriptionTwoTone";
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 
 import styles from "../styles/Home.module.css";
 
 import Link from "next/link";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
-const drawerWidth = 220;
+const drawerWidth = 175;
 
 function Dashboard() {
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
+
+    const [state, setState] = React.useState({
+        right: false,
+    });
+
+    const toggleDrawer =
+        (anchor: Anchor, open: boolean) =>
+        (event: React.KeyboardEvent | React.MouseEvent) => {
+            if (
+                event.type === "keydown" &&
+                ((event as React.KeyboardEvent).key === "Tab" ||
+                    (event as React.KeyboardEvent).key === "Shift")
+            ) {
+                return;
+            }
+
+            setState({ ...state, [anchor]: open });
+        };
+
+    const list = (anchor: Anchor) => (
+        <Box
+            sx={{ auto: 250 }}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <List>
+                <ListItem key={"Home"} disablePadding>
+                <ListItemButton>
+                <ListItemIcon>
+                <HomeTwoToneIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Home"} />
+                </ListItemButton>
+                </ListItem>
+                </List>
+        </Box>
+    );
+
     return (
         <Box
             className={styles.container}
@@ -85,7 +101,7 @@ function Dashboard() {
                 <Head>
                     <title>Cram Tracker</title>
                     <meta
-                        name="Cram Tracker - A tool for scheduling and tracking your cramming sessions"
+                        name="Cram Tracker - Tools for your cramming sessions"
                         content="Providing crammers with tools and adaptive metrics to help them schedule and get through their assignments with ease."
                     />
                 </Head>
@@ -114,9 +130,9 @@ function Dashboard() {
                                         textDecoration: "none",
                                     }}
                                 >
-                                    TRANSLANG - THE ONLINE CODE CONVERTER
+                                    Cram Tracker - Tools for your cramming
+                                    sessions
                                 </Typography>
-
                                 <Box
                                     sx={{
                                         flexGrow: 1,
@@ -129,117 +145,44 @@ function Dashboard() {
                                         display: { xs: "none", md: "flex" },
                                     }}
                                 ></Box>
-
-                                <Box sx={{ flexGrow: 0, px: "15px" }}>
-                                    <Tooltip title="Open settings">
-                                        <Button
-                                            variant="contained"
-                                            onClick={handleOpenUserMenu}
-                                        >
-                                            <Typography
-                                                textAlign="center"
-                                                sx={{ mr: "5px" }}
+                                <IconButton
+                                    sx={{ ml: 1 }}
+                                    onClick={colorMode.toggleColorMode}
+                                    color="inherit"
+                                >
+                                    {theme.palette.mode === "dark" ? (
+                                        <NightlightIcon />
+                                    ) : (
+                                        <LightModeIcon />
+                                    )}
+                                </IconButton>
+                                <div>
+                                    {(["right"] as const).map((anchor) => (
+                                        <React.Fragment key={anchor}>
+                                            <Button
+                                                onClick={toggleDrawer(
+                                                    anchor,
+                                                    true
+                                                )}
                                             >
-                                                {auth.currentUser.displayName}
-                                            </Typography>
-                                            <Avatar
-                                                alt="Google Photo/Initial"
-                                                src={auth.currentUser.photoURL}
-                                            />
-                                        </Button>
-                                    </Tooltip>
-                                    <Menu
-                                        sx={{ mt: "0" }}
-                                        id="menu-appbar"
-                                        anchorEl={anchorElUser}
-                                        anchorOrigin={{
-                                            vertical: "bottom",
-                                            horizontal: "right",
-                                        }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: "top",
-                                            horizontal: "right",
-                                        }}
-                                        open={Boolean(anchorElUser)}
-                                        onClose={handleCloseUserMenu}
-                                    >
-                                        <Link
-                                            href={{
-                                                pathname: "/menu/inbox",
-                                            }}
-                                        >
-                                            <MenuItem key="Inbox">
-                                                <InboxIcon
-                                                    sx={{ pr: "5px" }}
-                                                ></InboxIcon>
-                                                <Typography textAlign="center">
-                                                    Inbox
-                                                </Typography>
-                                            </MenuItem>
-                                        </Link>
-                                        <Link
-                                            href={{
-                                                pathname:
-                                                    "/menu/submitted-complaints",
-                                            }}
-                                        >
-                                            <MenuItem
-                                                key="Submitted Complaints"
-                                                onClick={handleCloseUserMenu}
+                                                {anchor}
+                                            </Button>
+                                            <Drawer
+                                                anchor={anchor}
+                                                open={state[anchor]}
+                                                onClose={toggleDrawer(
+                                                    anchor,
+                                                    false
+                                                )}
                                             >
-                                                <UploadFileIcon
-                                                    sx={{ pr: "5px" }}
-                                                ></UploadFileIcon>
-                                                <Typography textAlign="center">
-                                                    Submitted Complaints
-                                                </Typography>
-                                            </MenuItem>
-                                        </Link>
-                                        <Link
-                                            href={{
-                                                pathname:
-                                                    "/menu/accepted-suggestions",
-                                            }}
-                                        >
-                                            <MenuItem
-                                                key="Accepted Suggestions"
-                                                onClick={handleCloseUserMenu}
-                                            >
-                                                <DoneAllIcon
-                                                    sx={{ pr: "5px" }}
-                                                ></DoneAllIcon>
-                                                <Typography textAlign="center">
-                                                    Accepted Suggestions
-                                                </Typography>
-                                            </MenuItem>
-                                        </Link>
-                                    </Menu>
-                                </Box>
-                                {user && (
-                                    // <Link
-                                    //     href={{
-                                    //         pathname: "/auth/login",
-                                    //     }}
-                                    // >
-                                    <Button
-                                        sx={{ px: "15px" }}
-                                        // style={}
-                                        onClick={() => {
-                                            logout();
-                                        }}
-                                        color="inherit"
-                                        variant="outlined"
-                                        className="btn"
-                                    >
-                                        Sign Out
-                                    </Button>
-                                    // </Link>
-                                )}
+                                                {list(anchor)}
+                                            </Drawer>
+                                        </React.Fragment>
+                                    ))}
+                                </div>
                             </Toolbar>
                         </Container>
                     </AppBar>
-                    <h1 className={styles.title}>Cram Tracker</h1>
                     {/* here put drawer */}
                     <Box sx={{ display: "flex" }}>
                         <CssBaseline />{" "}
@@ -259,72 +202,101 @@ function Dashboard() {
                             <Box sx={{ overflow: "auto", marginTop: 10 }}>
                                 <List>
                                     <ListItem key={"Home"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <HomeTwoToneIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={"Home"} />
-                                        </ListItemButton>
+                                        <Link
+                                            href={{
+                                                pathname: "/",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <HomeTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"Home"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                                 <List>
-                                    <ListItem key={"English"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <DescriptionTwoToneIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={"English"} />
-                                        </ListItemButton>
+                                    <ListItem key={"English Writing"} disablePadding>
+                                        <Link
+                                            href={{
+                                                pathname:
+                                                    "/subjectPages/englishWriting",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <DescriptionTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"English Writing"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                                 <List>
                                     <ListItem key={"Math"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <CalculateTwoToneIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={"Math"} />
-                                        </ListItemButton>
+                                        <Link
+                                            href={{
+                                                pathname:
+                                                    "/subjectPages/mathematics",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <CalculateTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"Mathematics"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                                 <List>
                                     <ListItem key={"Physics"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <SportsHandballTwoToneIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={"Physics"} />
-                                        </ListItemButton>
+                                        <Link
+                                            href={{
+                                                pathname:
+                                                    "/subjectPages/physics",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <SportsHandballTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"Physics"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                                 <List>
                                     <ListItem key={"Chemistry"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <ScienceTwoToneIcon />
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primary={"Chemistry"}
-                                            />
-                                        </ListItemButton>
+                                        <Link
+                                            href={{
+                                                pathname:
+                                                    "/subjectPages/chemistry",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <ScienceTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"Chemistry"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                             </Box>
                         </Drawer>
                     </Box>
-                    {/* //toggle theme button */}
-                    {theme.palette.mode} mode
-                    <IconButton
-                        sx={{ ml: 1 }}
-                        onClick={colorMode.toggleColorMode}
-                        color="inherit"
-                    >
-                        {theme.palette.mode === "dark" ? (
-                            <NightlightIcon />
-                        ) : (
-                            <LightModeIcon />
-                        )}
-                    </IconButton>
                 </main>
             </div>
         </Box>

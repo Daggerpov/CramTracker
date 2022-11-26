@@ -18,7 +18,6 @@ import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -27,6 +26,8 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox"; /* placeholder icon*/
 import MailIcon from "@mui/icons-material/Mail"; /* placeholder icon */
 import ScienceTwoToneIcon from '@mui/icons-material/ScienceTwoTone';
+import Typography from "@mui/material/Typography";
+
 
 import styles from "../../styles/Home.module.css";
 
@@ -52,7 +53,7 @@ function Physics() {
                 p: 3,
             }}
         >
-            <div className={styles.container}>
+            <div>
                 <Head>
                     <title>Physics</title>
                     <meta
@@ -60,9 +61,20 @@ function Physics() {
                         content="Providing crammers with tools and adaptive metrics to help them schedule and get through their assignments with ease."
                     />
                 </Head>
+
                 <main className={styles.main}>
-                    <h1 className={styles.physTitle}>Physics</h1>
-                    {/* DRAWER */}
+                    <Typography
+                        variant="h1"
+                        sx={{
+                            height: 100,
+                            marginTop: 10,
+                            
+                        }}
+                    >
+                        Better Physics
+                    </Typography>
+
+                    {/* Sidebar */}
                     <Box sx={{ display: "flex" }}>
                         <CssBaseline />
 
@@ -100,10 +112,7 @@ function Physics() {
                                     </ListItem>
                                 </List>
                                 <List>
-                                    <ListItem
-                                        key={"Math"}
-                                        disablePadding
-                                    >
+                                    <ListItem key={"Math"} disablePadding>
                                         <ListItemButton>
                                             <ListItemIcon>
                                                 <InboxIcon />
@@ -128,7 +137,9 @@ function Physics() {
                                             <ListItemIcon>
                                                 <ScienceTwoToneIcon />
                                             </ListItemIcon>
-                                            <ListItemText primary={"Chemistry"} />
+                                            <ListItemText
+                                                primary={"Chemistry"}
+                                            />
                                         </ListItemButton>
                                     </ListItem>
                                 </List>
@@ -138,11 +149,9 @@ function Physics() {
                     {/* //toggle theme button */}
                     {theme.palette.mode} mode
                     <IconButton
-                        sx={{ 
-                            ml: 1
-                            position: fixed;
-                            top: 0;
-                         }}
+                        sx={{
+                            ml: 1,
+                        }}
                         onClick={colorMode.toggleColorMode}
                         color="inherit"
                     >
