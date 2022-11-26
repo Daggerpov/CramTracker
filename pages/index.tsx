@@ -1,24 +1,20 @@
 //@ts-nocheck
 
-import Head from "next/head";
+import * as React from "react";
+
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import Head from "next/head";
 
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import { Button } from "@material-tailwind/react";
-import Switch from "@mui/material/Switch";
-import IconButton from "@material-ui/core/IconButton";
-import { createTheme, ThemeProvider, useTheme } from "@material-ui/core/styles";
-
-
-import CssBaseline from "@mui/material/CssBaseline";
-
+import IconButton from "@mui/material/IconButton";
+import Box from "@mui/material/Box";
+import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import NightlightIcon from "@mui/icons-material/Nightlight";
-import Box from "@mui/material/Box";
+import { Button } from "@material-tailwind/react";
 
-import * as React from "react";
+import styles from "../styles/Home.module.css";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -49,9 +45,7 @@ function Dashboard() {
                 </Head>
                 <main className={styles.main}>
                     <h1 className={styles.title}>Cram Tracker</h1>
-                    <div className="flex w-max gap-4">
-                        <Button color="blue">color blue</Button>
-                    </div>
+                    
                     {theme.palette.mode} mode
                     <IconButton
                         sx={{ ml: 1 }}
@@ -59,18 +53,17 @@ function Dashboard() {
                         color="inherit"
                     >
                         {theme.palette.mode === "dark" ? (
-                            <Brightness7Icon />
+                            <NightlightIcon />
                         ) : (
-                            <Brightness4Icon />
+                            <LightModeIcon />
                         )}
                     </IconButton>
                 </main>
             </div>
         </Box>
-
     );
-                        
 }
+
 export default function ToggleColorMode() {
     const [mode, setMode] = React.useState<"light" | "dark">("light");
     const colorMode = React.useMemo(
