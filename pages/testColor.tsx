@@ -1,28 +1,18 @@
-//@ts-nocheck
+import * as React from "react";
+import IconButton from "@mui/material/IconButton";
+import Box from "@mui/material/Box";
+import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
+import Head from "next/head";
 import { Button } from "@material-tailwind/react";
-import Switch from "@mui/material/Switch";
-import IconButton from "@material-ui/core/IconButton";
-import { createTheme, ThemeProvider, useTheme } from "@material-ui/core/styles";
-
-
-import CssBaseline from "@mui/material/CssBaseline";
-
-import LightModeIcon from "@mui/icons-material/LightMode";
-import NightlightIcon from "@mui/icons-material/Nightlight";
-import Box from "@mui/material/Box";
-
-import * as React from "react";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
-function Dashboard() {
+function MyApp() {
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
     return (
@@ -67,10 +57,9 @@ function Dashboard() {
                 </main>
             </div>
         </Box>
-
     );
-                        
 }
+
 export default function ToggleColorMode() {
     const [mode, setMode] = React.useState<"light" | "dark">("light");
     const colorMode = React.useMemo(
@@ -97,7 +86,7 @@ export default function ToggleColorMode() {
     return (
         <ColorModeContext.Provider value={colorMode}>
             <ThemeProvider theme={theme}>
-                <Dashboard />
+                <MyApp />
             </ThemeProvider>
         </ColorModeContext.Provider>
     );

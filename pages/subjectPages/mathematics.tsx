@@ -1,12 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-// import styles from "../../styles/Home.module.css";
 import styles from "../../styles/Home.module.css";
 
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 
-export default function Physics() {
+export default function Mathematics() {
     return (
         <div className={styles.container}>
             <Head>
