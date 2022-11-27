@@ -6,8 +6,11 @@ import Image from "next/image";
 import Head from "next/head";
 
 import Container from "@mui/material/Container";
-
+//import React, { useState } from 'react';
 import MenuIcon from "@mui/icons-material/Menu";
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
 import AdbIcon from "@mui/icons-material/Adb";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -37,13 +40,30 @@ import DescriptionTwoToneIcon from "@mui/icons-material/DescriptionTwoTone";
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 import styles from "../../styles/Home.module.css";
 
 import Link from "next/link";
+import pdfFile from '../../public/Formula-Sheet-Final.pdf'
+import { Document, Page } from 'react-pdf';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 const drawerWidth = 175;
+
+const itemData = [
+  {
+    img: 'https://media.proprofs.com/images/QM/user_images/2503852/1576047956.jpg',
+    title: 'Circular Motion',
+  },
+  {
+    img: 'https://leah4sci.com/wp-content/uploads/2014/08/mcat-forces-study-guide-cheat-sheet-by-leah4sci.jpg',
+    title: 'Forces',
+  },
+];
 
 function Physics() {
     const theme = useTheme();
@@ -52,7 +72,6 @@ function Physics() {
     const [state, setState] = React.useState({
         right: false,
     });
-
     const toggleDrawer =
         (anchor: Anchor, open: boolean) =>
         (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -89,7 +108,7 @@ function Physics() {
             className={styles.container}
             sx={{
                 display: "flex",
-                width: "100%",
+                width: "110%",
                 alignItems: "center",
                 justifyContent: "center",
                 bgcolor: "background.default",
@@ -146,6 +165,7 @@ function Physics() {
                                         display: { xs: "none", md: "flex" },
                                     }}
                                 ></Box>
+
                                 <IconButton
                                     sx={{ ml: 1}}
                                     onClick={colorMode.toggleColorMode}
@@ -182,6 +202,7 @@ function Physics() {
                                         </React.Fragment>
                                     ))}
                                 </div>
+                                
                             </Toolbar>
                         </Container>
                     </AppBar>
@@ -302,6 +323,40 @@ function Physics() {
                             </Box>
                         </Drawer>
                     </Box>
+
+                    <ImageList sx={{ width: 1000, height: 450 }}>
+                        {itemData.map((item) => (
+                            <ImageListItem key={item.img}>
+                            <img
+                                src={`${item.img}?w=64&fit=crop&auto=format`}
+                                srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                                alt={item.title}
+                                loading="lazy"
+                            />
+                            <ImageListItemBar
+                                title={item.title}
+                                // subtitle={<span>by: {item.accessibleAt}</span>}
+                                subtitle={<a
+                        href={item.img}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Code Repository{" "}
+                        <span className={styles.logo}>
+                            <Image
+                                src="/github_logo.png"
+                                alt="Github logo"
+                                width={64}
+                                height={64}
+                            />
+                        </span>
+                    </a>}
+                                position="below"
+                            />
+                            </ImageListItem>    
+                    ))}
+                    </ImageList>
+
                 </main>
             </div>
         </Box>
