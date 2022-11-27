@@ -121,7 +121,7 @@ function Physics() {
                 <Head>
                     <title>Physics</title>
                     <meta
-                        name="Cram Tracker - Tools for your cramming sessions"
+                        name="Cram Tracker - Tools For Cramming"
                         content="Providing crammers with tools and adaptive metrics to help them schedule and get through their assignments with ease."
                     />
                 </Head>

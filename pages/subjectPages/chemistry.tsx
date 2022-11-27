@@ -5,9 +5,9 @@ import * as React from "react";
 import Image from "next/image";
 import Head from "next/head";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 import Container from "@mui/material/Container";
-import Avatar from '@mui/material/Avatar';
+import Avatar from "@mui/material/Avatar";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
 import Tooltip from "@mui/material/Tooltip";
@@ -15,9 +15,9 @@ import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import LightModeTwoToneIcon from '@mui/icons-material/LightModeTwoTone';
+import LightModeTwoToneIcon from "@mui/icons-material/LightModeTwoTone";
 import NightlightIcon from "@mui/icons-material/Nightlight";
-import NightlightTwoToneIcon from '@mui/icons-material/NightlightTwoTone';
+import NightlightTwoToneIcon from "@mui/icons-material/NightlightTwoTone";
 import { Button } from "@material-tailwind/react";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -35,11 +35,11 @@ import SportsHandballTwoToneIcon from "@mui/icons-material/SportsHandballTwoTone
 import CalculateTwoToneIcon from "@mui/icons-material/CalculateTwoTone";
 import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
 import DescriptionTwoToneIcon from "@mui/icons-material/DescriptionTwoTone";
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
-import Co2Icon from '@mui/icons-material/Co2';
-import { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
+import MenuTwoToneIcon from "@mui/icons-material/MenuTwoTone";
+import Co2Icon from "@mui/icons-material/Co2";
+import { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import styles from "../../styles/Home.module.css";
 
 import Link from "next/link";
@@ -48,14 +48,14 @@ const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 const drawerWidth = 175;
 const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
     <Tooltip {...props} classes={{ popper: className }} />
-  ))(({ theme }) => ({
+))(({ theme }) => ({
     [`& .${tooltipClasses.tooltip}`]: {
-      backgroundColor: theme.palette.common.white,
-      color: 'rgba(0, 0, 0, 0.87)',
-      boxShadow: theme.shadows[1],
-      fontSize: 11,
+        backgroundColor: theme.palette.common.white,
+        color: "rgba(0, 0, 0, 0.87)",
+        boxShadow: theme.shadows[1],
+        fontSize: 11,
     },
-  }));
+}));
 
 function Chemistry() {
     const theme = useTheme();
@@ -64,9 +64,12 @@ function Chemistry() {
     const [state, setState] = React.useState({
         right: false,
     });
-    const openInNewTab = url => {
-        window.open(url, '_blank', 'noopener,noreferrer');
-      };
+    const openInNewTabPeriodic = () => {
+        window.open("https://sciencenotes.org/wp-content/uploads/2017/02/ColorLargeTypePeriodicTable.png", "_blank", "noopener,noreferrer");
+    };
+    const openInNewTabAcids = () => {
+        window.open("https://www.chemistrysteps.com/wp-content/uploads/2018/07/Acids-and-bases-Free-Cheat-Sheet-Study-Guides.png", "_blank", "noopener,noreferrer");
+    };
     const toggleDrawer =
         (anchor: Anchor, open: boolean) =>
         (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -90,11 +93,11 @@ function Chemistry() {
         >
             <List>
                 <ListItem key={"Preferences"} disablePadding>
-                <ListItemButton>
-                <ListItemText primary={"Preferences"} />
-                </ListItemButton>
+                    <ListItemButton>
+                        <ListItemText primary={"Preferences"} />
+                    </ListItemButton>
                 </ListItem>
-                </List>
+            </List>
         </Box>
     );
 
@@ -116,7 +119,7 @@ function Chemistry() {
                 <Head>
                     <title>Chemistry</title>
                     <meta
-                        name="Cram Tracker - Tools for your cramming sessions"
+                        name="Cram Tracker - Tools For Cramming"
                         content="Providing crammers with tools and adaptive metrics to help them schedule and get through their assignments with ease."
                     />
                 </Head>
@@ -161,7 +164,7 @@ function Chemistry() {
                                     }}
                                 ></Box>
                                 <IconButton
-                                    sx={{ ml: 1}}
+                                    sx={{ ml: 1 }}
                                     onClick={colorMode.toggleColorMode}
                                     color="inherit"
                                 >
@@ -317,33 +320,17 @@ function Chemistry() {
                         </Drawer>
                     </Box>
 
-                    <Box
-                        textAlign="center">
-                            <LightTooltip title="Acids">
-                                <Button onClick={() => {
-                                    openInNewTab('https://www.chemistrysteps.com/wp-content/uploads/2018/07/Acids-and-bases-Free-Cheat-Sheet-Study-Guides.png');
-                                }}>
-                                    Acids Cheat Sheet
-                                </Button>
-                            </LightTooltip>
-                        </Box>
-
-                        
-                        <Box
-                        textAlign="center">
-                            <LightTooltip title="Periodic Table">
-                                <Button onClick={() => {
-                                    openInNewTab('https://sciencenotes.org/wp-content/uploads/2017/02/ColorLargeTypePeriodicTable.png');
-                                }}>
-                                    <Image src="/Users/kaidenmerchant/Documents/GitHub/CramTracker/public/symbolab.png"
-                                            alt="myImage" 
-                                            width="100"
-                                            height="100">
-                                    </Image>
-                                </Button>
-                            </LightTooltip>
-                        </Box>
-
+                    <div className={styles.acidsbutton}>
+                                <button onClick={openInNewTabAcids}>
+                                    Acids Sheet
+                                </button>
+                    </div>
+                
+                    <div className={styles.periodicbutton}>
+                                <button onClick={openInNewTabPeriodic}>
+                                    Periodic Table
+                                </button>
+                    </div>
                 </main>
             </div>
         </Box>
