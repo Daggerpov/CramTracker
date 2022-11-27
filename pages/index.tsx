@@ -78,6 +78,8 @@ function Dashboard() {
                 <ListItem key={"Preferences"} disablePadding>
                 <ListItemButton>
                 <ListItemText primary={"Preferences"} />
+                <ListItemText Secondary = {"Sleep Time"} />
+                
                 </ListItemButton>
                 </ListItem>
                 </List>
@@ -116,6 +118,7 @@ function Dashboard() {
                                         mr: 1,
                                     }}
                                 />
+
                                 <Typography
                                     variant="h6"
                                     noWrap

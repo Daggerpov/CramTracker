@@ -6,38 +6,44 @@ import Image from "next/image";
 import Head from "next/head";
 
 import Container from "@mui/material/Container";
-import AdbIcon from "@mui/icons-material/Adb";
 
+import MenuIcon from "@mui/icons-material/Menu";
+import AdbIcon from "@mui/icons-material/Adb";
+import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
 import LightModeIcon from "@mui/icons-material/LightMode";
+import LightModeTwoToneIcon from '@mui/icons-material/LightModeTwoTone';
 import NightlightIcon from "@mui/icons-material/Nightlight";
+import NightlightTwoToneIcon from '@mui/icons-material/NightlightTwoTone';
 import { Button } from "@material-tailwind/react";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox"; /* placeholder icon*/
-import MailIcon from "@mui/icons-material/Mail"; /* placeholder icon */
-import ScienceTwoToneIcon from '@mui/icons-material/ScienceTwoTone';
-import Typography from "@mui/material/Typography";
-
+import ScienceTwoToneIcon from "@mui/icons-material/ScienceTwoTone";
+import SportsHandballTwoToneIcon from "@mui/icons-material/SportsHandballTwoTone";
+import CalculateTwoToneIcon from "@mui/icons-material/CalculateTwoTone";
+import HomeTwoToneIcon from "@mui/icons-material/HomeTwoTone";
+import DescriptionTwoToneIcon from "@mui/icons-material/DescriptionTwoTone";
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 
 import styles from "../../styles/Home.module.css";
 
 import Link from "next/link";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
-const drawerWidth = 240;
+const drawerWidth = 175;
 
 function Physics() {
     const theme = useTheme();
@@ -46,6 +52,7 @@ function Physics() {
     const [state, setState] = React.useState({
         right: false,
     });
+
     const toggleDrawer =
         (anchor: Anchor, open: boolean) =>
         (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -59,22 +66,24 @@ function Physics() {
 
             setState({ ...state, [anchor]: open });
         };
-        const list = (anchor: Anchor) => (
-            <Box
-                sx={{ auto: 250, marginTop: 10 }}
-                role="presentation"
-                onClick={toggleDrawer(anchor, false)}
-                onKeyDown={toggleDrawer(anchor, false)}
-            >
-                <List>
-                    <ListItem key={"Preferences"} disablePadding>
-                    <ListItemButton>
-                    <ListItemText primary={"Preferences"} />
-                    </ListItemButton>
-                    </ListItem>
-                    </List>
-            </Box>
-        );
+
+    const list = (anchor: Anchor) => (
+        <Box
+            sx={{ auto: 250, marginTop: 10 }}
+            role="presentation"
+            onClick={toggleDrawer(anchor, false)}
+            onKeyDown={toggleDrawer(anchor, false)}
+        >
+            <List>
+                <ListItem key={"Preferences"} disablePadding>
+                <ListItemButton>
+                <ListItemText primary={"Preferences"} />
+                </ListItemButton>
+                </ListItem>
+                </List>
+        </Box>
+    );
+
     return (
         <Box
             className={styles.container}
@@ -89,17 +98,16 @@ function Physics() {
                 p: 3,
             }}
         >
-            <div>
+            <div className={styles.container}>
                 <Head>
                     <title>Physics</title>
                     <meta
-                        name="Cram Tracker - A tool for scheduling and tracking your cramming sessions"
+                        name="Cram Tracker - Tools for your cramming sessions"
                         content="Providing crammers with tools and adaptive metrics to help them schedule and get through their assignments with ease."
                     />
                 </Head>
-
                 <main className={styles.main}>
-                <AppBar position="static">
+                    <AppBar position="static">
                         <Container maxWidth="xl">
                             <Toolbar>
                                 <AdbIcon
@@ -139,28 +147,28 @@ function Physics() {
                                     }}
                                 ></Box>
                                 <IconButton
-                                    sx={{ ml: 1 }}
+                                    sx={{ ml: 1}}
                                     onClick={colorMode.toggleColorMode}
                                     color="inherit"
                                 >
                                     {theme.palette.mode === "dark" ? (
-                                        <NightlightIcon />
+                                        <NightlightTwoToneIcon />
                                     ) : (
-                                        <LightModeIcon />
+                                        <LightModeTwoToneIcon />
                                     )}
                                 </IconButton>
                                 <div>
                                     {(["right"] as const).map((anchor) => (
                                         <React.Fragment key={anchor}>
-                                            <Button
+                                            <IconButton
                                                 onClick={toggleDrawer(
                                                     anchor,
                                                     true
                                                 )}
                                             >
-                                                button
-                                            </Button>
-                                            
+                                                <MenuTwoToneIcon />
+                                            </IconButton>
+
                                             <Drawer
                                                 anchor={anchor}
                                                 open={state[anchor]}
@@ -177,21 +185,10 @@ function Physics() {
                             </Toolbar>
                         </Container>
                     </AppBar>
-                    <Typography
-                        variant="h1"
-                        sx={{
-                            height: 100,
-                            marginTop: 10,
-                            marginLeft: 20,
-                        }}
-                    >
-                        Better Physics
-                    </Typography>
-
-                    {/* Sidebar */}
+                    {/* here put drawer */}
                     <Box sx={{ display: "flex" }}>
-                        <CssBaseline />
-
+                        <CssBaseline />{" "}
+                        {/* check if this line can be removed */}
                         <Drawer
                             variant="permanent"
                             sx={{
@@ -207,54 +204,99 @@ function Physics() {
                             <Box sx={{ overflow: "auto", marginTop: 10 }}>
                                 <List>
                                     <ListItem key={"Home"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <InboxIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={"Home"} />
-                                        </ListItemButton>
+                                        <Link
+                                            href={{
+                                                pathname: "/",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <HomeTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"Home"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                                 <List>
-                                    <ListItem key={"English"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <InboxIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={"English"} />
-                                        </ListItemButton>
+                                    <ListItem
+                                        key={"English Writing"}
+                                        disablePadding
+                                    >
+                                        <Link
+                                            href={{
+                                                pathname:
+                                                    "/subjectPages/englishWriting",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <DescriptionTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"English Writing"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                                 <List>
                                     <ListItem key={"Math"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <InboxIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={"Math"} />
-                                        </ListItemButton>
+                                        <Link
+                                            href={{
+                                                pathname:
+                                                    "/subjectPages/mathematics",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <CalculateTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"Mathematics"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                                 <List>
                                     <ListItem key={"Physics"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <InboxIcon />
-                                            </ListItemIcon>
-                                            <ListItemText primary={"Physics"} />
-                                        </ListItemButton>
+                                        <Link
+                                            href={{
+                                                pathname:
+                                                    "/subjectPages/physics",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <SportsHandballTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"Physics"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                                 <List>
                                     <ListItem key={"Chemistry"} disablePadding>
-                                        <ListItemButton>
-                                            <ListItemIcon>
-                                                <ScienceTwoToneIcon />
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primary={"Chemistry"}
-                                            />
-                                        </ListItemButton>
+                                        <Link
+                                            href={{
+                                                pathname:
+                                                    "/subjectPages/chemistry",
+                                            }}
+                                        >
+                                            <ListItemButton>
+                                                <ListItemIcon>
+                                                    <ScienceTwoToneIcon />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    primary={"Chemistry"}
+                                                />
+                                            </ListItemButton>
+                                        </Link>
                                     </ListItem>
                                 </List>
                             </Box>
