@@ -75,6 +75,9 @@ function Mathematics( users ) {
   const handleTechniqueChange = (event: SelectChangeEvent) => {
     setTechnique(event.target.value as string);
   };
+  const openInNewTab = (url) => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
 
   const [age, setAge] = React.useState("");
 

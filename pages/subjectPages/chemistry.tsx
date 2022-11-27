@@ -335,7 +335,11 @@ function Chemistry() {
                                 <Button onClick={() => {
                                     openInNewTab('https://sciencenotes.org/wp-content/uploads/2017/02/ColorLargeTypePeriodicTable.png');
                                 }}>
-                                    Periodic Table
+                                    <Image src="/Users/kaidenmerchant/Documents/GitHub/CramTracker/public/symbolab.png"
+                                            alt="myImage" 
+                                            width="100"
+                                            height="100">
+                                    </Image>
                                 </Button>
                             </LightTooltip>
                         </Box>

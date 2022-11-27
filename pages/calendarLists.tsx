@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 
 export default function AlignItemsList() {
   return (
-    <List sx={{ width: '100%', maxWidth: 360, height: 300, bgcolor: 'background.paper' }}>
+    <List sx={{ width: '100%', maxWidth: 360, height: 300, bgcolor: 'background.paper', marginLeft: 75 }}>
       <ListItem alignItems="flex-start">
         <ListItemText
           primary="Placeholder"
@@ -29,47 +29,11 @@ export default function AlignItemsList() {
           }
         />
       </ListItem>
-    
-  
-
-      <ListItem alignItems="flex-start">
-        <ListItemText
-          primary="Placeholder"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Placeholder:
-              </Typography>
-              {" This will hold text for a to-do list"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-
-      <ListItem alignItems="flex-start">
-        <ListItemText
-          primary="Placeholder"
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: 'inline' }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                Placeholder:
-              </Typography>
-              {" This will hold text for a to-do list"}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
-
     </List>
+
+    
+
+
   );
 }
+
