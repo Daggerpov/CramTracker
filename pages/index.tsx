@@ -17,7 +17,6 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import LightModeTwoToneIcon from "@mui/icons-material/LightModeTwoTone";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import NightlightTwoToneIcon from "@mui/icons-material/NightlightTwoTone";
-import { Button } from "@material-tailwind/react";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -61,6 +60,7 @@ import Paper from "@mui/material/Paper";
 
 import dayjs, { Dayjs } from "dayjs";
 import styles from "../styles/Home.module.css";
+import { Button } from "@material-tailwind/react";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, logout } from "../firebaseConfig";
@@ -104,7 +104,7 @@ function createData(name: string, subject: string) {
     return { name, subject };
 }
 
-function Dashboard() {
+export default function Dashboard() {
     const [user, setUser] = useAuthState(auth);
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
@@ -143,12 +143,9 @@ function Dashboard() {
         null,
     ]);
 
-
-
     const [state, setState] = React.useState({
         right: false,
     });
-
 
     const [Todolist, setTodoList] = React.useState([]);
     const [input, setInput] = React.useState("");
@@ -358,7 +355,7 @@ function Dashboard() {
                                                         </Typography>
                                                         <TimePicker
                                                             label=""
-                                                            value={dayValue}
+                                                            value={sleepValue}
                                                             onChange={
                                                                 handleSleepChange
                                                             }
@@ -605,7 +602,7 @@ function Dashboard() {
                                                         </Typography>
                                                         <TimePicker
                                                             label=""
-                                                            value={dayValue}
+                                                            value={sleepValue}
                                                             onChange={
                                                                 handleSleepChange
                                                             }
@@ -1031,7 +1028,7 @@ function Dashboard() {
     );
 }
 
-export default function ToggleColorMode() {
+function ToggleColorMode() {
     const [mode, setMode] = React.useState<"light" | "dark">("light");
     const colorMode = React.useMemo(
         () => ({

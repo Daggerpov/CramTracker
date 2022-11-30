@@ -6,7 +6,6 @@ import Image from "next/image";
 import Head from "next/head";
 
 import Container from "@mui/material/Container";
-
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
@@ -74,9 +73,6 @@ function Mathematics() {
     const handleTechniqueChange = (event: SelectChangeEvent) => {
         setTechnique(event.target.value as string);
     };
-    const openInNewTab = (url) => {
-        window.open(url, "_blank", "noopener,noreferrer");
-    };
 
     const [technique, setTechnique] = React.useState("");
 
@@ -108,6 +104,10 @@ function Mathematics() {
     const [state, setState] = React.useState({
         right: false,
     });
+
+    const openInNewTab = (url) => {
+        window.open(url, "_blank", "noopener,noreferrer");
+    };
 
     const LightTooltip = styled(({ className, ...props }: TooltipProps) => (
         <Tooltip {...props} classes={{ popper: className }} />
@@ -302,7 +302,7 @@ function Mathematics() {
                                                         </Typography>
                                                         <TimePicker
                                                             label=""
-                                                            value={dayValue}
+                                                            value={sleepValue}
                                                             onChange={
                                                                 handleSleepChange
                                                             }
@@ -549,7 +549,7 @@ function Mathematics() {
                                                         </Typography>
                                                         <TimePicker
                                                             label=""
-                                                            value={dayValue}
+                                                            value={sleepValue}
                                                             onChange={
                                                                 handleSleepChange
                                                             }
