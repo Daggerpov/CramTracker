@@ -83,10 +83,10 @@ function Mathematics(users) {
     const [dayValue, setDayValue] = React.useState<Dayjs | null>(
         dayjs("2014-08-18T21:11:54")
     );
-    const [wakeValue, setWake] = React.useState<Dayjs | null>(
+    const [wakeValue, setWakeValue] = React.useState<Dayjs | null>(
         dayjs("2014-08-18T21:11:54")
     );
-    const [sleepValue, setSleep] = React.useState<Dayjs | null>(
+    const [sleepValue, setSleepValue] = React.useState<Dayjs | null>(
         dayjs("2014-08-18T21:11:54")
     );
 
@@ -324,7 +324,7 @@ function Mathematics(users) {
 
                                                         <TimePicker
                                                             label=""
-                                                            value={WakeValue}
+                                                            value={wakeValue}
                                                             onChange={
                                                                 handleWakeChange
                                                             }
@@ -343,17 +343,17 @@ function Mathematics(users) {
                                                         <FormControl fullWidth>
                                                             <InputLabel id="demo-simple-select-label">
                                                                 Studying
-                                                                Techniques
+                                                                Technique
                                                             </InputLabel>
                                                             <Select
                                                                 labelId="demo-simple-select-label"
                                                                 id="demo-simple-select"
-                                                                value={
-                                                                    StudyTechnique
+                                                                studyTechniqueValue={
+                                                                    technique
                                                                 }
-                                                                label="Study Technique"
+                                                                label="Techniques"
                                                                 onChange={
-                                                                    handleStudyTechniqueChange
+                                                                    handleTechniqueChange
                                                                 }
                                                             >
                                                                 <MenuItem
@@ -365,7 +365,7 @@ function Mathematics(users) {
                                                                 </MenuItem>
                                                                 <MenuItem
                                                                     value={
-                                                                        "Traditional"
+                                                                        "traditional"
                                                                     }
                                                                 >
                                                                     Traditional
@@ -374,9 +374,12 @@ function Mathematics(users) {
                                                                     few hour
                                                                     gaps
                                                                 </MenuItem>
-                                                                <MenuItem value="Automated">
-                                                                    automated
-                                                                    one
+                                                                <MenuItem
+                                                                    value={
+                                                                        "automated"
+                                                                    }
+                                                                >
+                                                                    Automated
                                                                 </MenuItem>
                                                             </Select>
                                                         </FormControl>
@@ -589,12 +592,12 @@ function Mathematics(users) {
                                                         <FormControl fullWidth>
                                                             <InputLabel id="demo-simple-select-label">
                                                                 Studying
-                                                                Techniques
+                                                                Technique
                                                             </InputLabel>
                                                             <Select
                                                                 labelId="demo-simple-select-label"
                                                                 id="demo-simple-select"
-                                                                StudyTechniquevalue={
+                                                                studyTechniqueValue={
                                                                     technique
                                                                 }
                                                                 label="Techniques"
@@ -603,15 +606,15 @@ function Mathematics(users) {
                                                                 }
                                                             >
                                                                 <MenuItem
-                                                                    StudyTechniquevalue={
-                                                                        10
+                                                                    value={
+                                                                        "Pomodoro"
                                                                     }
                                                                 >
                                                                     Pomodoro
                                                                 </MenuItem>
                                                                 <MenuItem
-                                                                    StudyTechniquevalue={
-                                                                        20
+                                                                    value={
+                                                                        "traditional"
                                                                     }
                                                                 >
                                                                     Traditional
@@ -621,10 +624,11 @@ function Mathematics(users) {
                                                                     gaps
                                                                 </MenuItem>
                                                                 <MenuItem
-                                                                    value = {studyTechnique}
+                                                                    value={
+                                                                        "automated"
+                                                                    }
                                                                 >
-                                                                    automated
-                                                                    one
+                                                                    Automated
                                                                 </MenuItem>
                                                             </Select>
                                                         </FormControl>

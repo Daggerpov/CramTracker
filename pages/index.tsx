@@ -486,27 +486,27 @@ function Dashboard() {
                                             <Box sx={{ minWidth: 120 }}>
                                                 <FormControl fullWidth>
                                                     <InputLabel id="demo-simple-select-label">
-                                                        Studying Techniques
+                                                        Studying Technique
                                                     </InputLabel>
                                                     <Select
                                                         labelId="demo-simple-select-label"
                                                         id="demo-simple-select"
-                                                        value={technique}
+                                                        studyTechniqueValue={
+                                                            technique
+                                                        }
                                                         label="Techniques"
                                                         onChange={
                                                             handleTechniqueChange
                                                         }
                                                     >
                                                         <MenuItem
-                                                            StudyTechniquevalue={
-                                                                10
-                                                            }
+                                                            value={"Pomodoro"}
                                                         >
                                                             Pomodoro
                                                         </MenuItem>
                                                         <MenuItem
-                                                            StudyTechniquevalue={
-                                                                20
+                                                            value={
+                                                                "traditional"
                                                             }
                                                         >
                                                             Traditional Studying
@@ -514,11 +514,9 @@ function Dashboard() {
                                                             gaps
                                                         </MenuItem>
                                                         <MenuItem
-                                                            StudyTechniquevalue={
-                                                                30
-                                                            }
+                                                            value={"automated"}
                                                         >
-                                                            automated one
+                                                            Automated
                                                         </MenuItem>
                                                     </Select>
                                                 </FormControl>
