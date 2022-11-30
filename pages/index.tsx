@@ -4,9 +4,9 @@ import * as React from "react";
 
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
 
 import Container from "@mui/material/Container";
-
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
 import Tooltip from "@mui/material/Tooltip";
@@ -50,10 +50,7 @@ import {
     DateRangePicker,
     DateRange,
 } from "@mui/x-date-pickers-pro/DateRangePicker";
-import dayjs, { Dayjs } from "dayjs";
-import styles from "../styles/Home.module.css";
-import Link from "next/link";
-
+import Avatar from "@mui/material/Avatar";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -61,6 +58,12 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+
+import dayjs, { Dayjs } from "dayjs";
+import styles from "../styles/Home.module.css";
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, logout } from "../firebaseConfig";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 const drawerWidth = 175;
@@ -102,40 +105,50 @@ function createData(name: string, subject: string) {
 }
 
 function Dashboard() {
+    const [user, setUser] = useAuthState(auth);
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
-
-    const [technique, setTechnique] = React.useState("");
-    // const [sleepTime, setSleepTime] = React.useState("");
-    // const [wakeTime, setWakeTime] = React.useState("");
-    // const [wakeTime, setWakeTime] = React.useState("");
 
     const handleTechniqueChange = (event: SelectChangeEvent) => {
         setTechnique(event.target.value as string);
     };
+    const openInNewTab = (url) => {
+        window.open(url, "_blank", "noopener,noreferrer");
+    };
+
+    const [technique, setTechnique] = React.useState("");
 
     const [dayValue, setDayValue] = React.useState<Dayjs | null>(
         dayjs("2014-08-18T21:11:54")
     );
+    const [wakeValue, setWakeValue] = React.useState<Dayjs | null>(
+        dayjs("2014-08-18T21:11:54")
+    );
+    const [sleepValue, setSleepValue] = React.useState<Dayjs | null>(
+        dayjs("2014-08-18T21:11:54")
+    );
 
-    // for the mathematics-implemented selects
-    // const handleWakeTimeChange = (newValue: Dayjs | null) => {
-    //     React.setWakeTime(newValue);
-    // };
-    const handleTimeChange = (newValue: Dayjs | null) => {
-        React.setDayValue(newValue);
+    const handleDayChange = (newValue: Dayjs | null) => {
+        setDayValue(newValue);
     };
-    // const handleSleepTimeChange = (newValue: Dayjs | null) => {
-    //     React.setTimeValue(newValue);
-    // };
+    const handleWakeChange = (newValue: Dayjs | null) => {
+        setWakeValue(newValue);
+    };
+    const handleSleepChange = (newValue: Dayjs | null) => {
+        setSleepValue(newValue);
+    };
 
-    const [state, setState] = React.useState({
-        right: false,
-    });
     const [downTimeValue, setDownTimeValue] = React.useState<DateRange<Dayjs>>([
         null,
         null,
     ]);
+
+
+
+    const [state, setState] = React.useState({
+        right: false,
+    });
+
 
     const [Todolist, setTodoList] = React.useState([]);
     const [input, setInput] = React.useState("");
@@ -217,61 +230,519 @@ function Dashboard() {
                     />
                 </Head>
                 <main className={styles.main}>
-                    <AppBar position="static">
-                        <Container maxWidth="xl">
-                            <Toolbar>
-                                <AdbIcon
-                                    sx={{
-                                        display: { xs: "none", md: "flex" },
-                                        mr: 1,
-                                    }}
-                                />
-                                <Typography
-                                    variant="h6"
-                                    noWrap
-                                    component="a"
-                                    href="/"
-                                    sx={{
-                                        mr: 2,
-                                        display: { xs: "none", md: "flex" },
-                                        fontFamily: "monospace",
-                                        fontWeight: 700,
-                                        letterSpacing: ".3rem",
-                                        color: "inherit",
-                                        textDecoration: "none",
-                                    }}
-                                >
-                                    Cram Tracker - Tools for your cramming
-                                    sessions
-                                </Typography>
+                    {user && (
+                        <AppBar position="static">
+                            <Container maxWidth="xl">
+                                <Toolbar>
+                                    <AdbIcon
+                                        sx={{
+                                            display: { xs: "none", md: "flex" },
+                                            mr: 1,
+                                        }}
+                                    />
+                                    <Typography
+                                        variant="h6"
+                                        noWrap
+                                        component="a"
+                                        href="/"
+                                        sx={{
+                                            mr: 2,
+                                            display: { xs: "none", md: "flex" },
+                                            fontFamily: "monospace",
+                                            fontWeight: 700,
+                                            letterSpacing: ".3rem",
+                                            color: "inherit",
+                                            textDecoration: "none",
+                                        }}
+                                    >
+                                        Cram Tracker - Tools For Cramming
+                                    </Typography>
 
-                                <Box
-                                    sx={{
-                                        flexGrow: 1,
-                                        display: { xs: "flex", md: "none" },
-                                    }}
-                                ></Box>
-                                <Box
-                                    sx={{
-                                        flexGrow: 1,
-                                        display: { xs: "none", md: "flex" },
-                                    }}
-                                ></Box>
+                                    <Box
+                                        sx={{
+                                            flexGrow: 1,
+                                            display: { xs: "flex", md: "none" },
+                                        }}
+                                    ></Box>
+                                    <Box
+                                        sx={{
+                                            flexGrow: 1,
+                                            display: { xs: "none", md: "flex" },
+                                        }}
+                                    ></Box>
 
-                                <IconButton
-                                    sx={{ ml: 1 }}
-                                    onClick={colorMode.toggleColorMode}
-                                    color="inherit"
-                                >
-                                    {theme.palette.mode === "dark" ? (
-                                        <NightlightTwoToneIcon />
-                                    ) : (
-                                        <LightModeTwoToneIcon />
-                                    )}
-                                </IconButton>
-                            </Toolbar>
-                        </Container>
-                    </AppBar>
+                                    <Typography
+                                        textAlign="center"
+                                        sx={{ mr: "5px" }}
+                                    >
+                                        {auth.currentUser.displayName}
+                                    </Typography>
+                                    <Avatar
+                                        alt="Google Photo/Initial"
+                                        src={auth.currentUser.photoURL}
+                                    />
+
+                                    <Button
+                                        sx={{ px: "15px" }}
+                                        // style={}
+                                        onClick={() => {
+                                            logout();
+                                        }}
+                                        color="inherit"
+                                        variant="outlined"
+                                        className="btn"
+                                    >
+                                        Sign Out
+                                    </Button>
+
+                                    <IconButton
+                                        sx={{ ml: 1 }}
+                                        onClick={colorMode.toggleColorMode}
+                                        color="inherit"
+                                    >
+                                        {theme.palette.mode === "dark" ? (
+                                            <NightlightTwoToneIcon />
+                                        ) : (
+                                            <LightModeTwoToneIcon />
+                                        )}
+                                    </IconButton>
+                                    <div>
+                                        {(["right"] as const).map((anchor) => (
+                                            <React.Fragment key={anchor}>
+                                                <IconButton
+                                                    onClick={toggleDrawer(
+                                                        anchor,
+                                                        true
+                                                    )}
+                                                >
+                                                    <MenuTwoToneIcon />
+                                                </IconButton>
+
+                                                <Drawer
+                                                    anchor={anchor}
+                                                    open={state[anchor]}
+                                                    onClose={toggleDrawer(
+                                                        anchor,
+                                                        false
+                                                    )}
+                                                >
+                                                    {list(anchor)}
+                                                    <Typography>
+                                                        Assigment due date and
+                                                        time{" "}
+                                                    </Typography>
+                                                    <LocalizationProvider
+                                                        dateAdapter={
+                                                            AdapterDayjs
+                                                        }
+                                                    >
+                                                        <DateTimePicker
+                                                            label=""
+                                                            value={dayValue}
+                                                            onChange={
+                                                                handleDayChange
+                                                            }
+                                                            renderInput={(
+                                                                params
+                                                            ) => (
+                                                                <TextField
+                                                                    {...params}
+                                                                />
+                                                            )}
+                                                        />
+                                                        <br />
+
+                                                        <Typography>
+                                                            {" "}
+                                                            Usual sleep time
+                                                        </Typography>
+                                                        <TimePicker
+                                                            label=""
+                                                            value={dayValue}
+                                                            onChange={
+                                                                handleSleepChange
+                                                            }
+                                                            renderInput={(
+                                                                params
+                                                            ) => (
+                                                                <TextField
+                                                                    {...params}
+                                                                />
+                                                            )}
+                                                        />
+                                                        <br />
+                                                        <Typography>
+                                                            {" "}
+                                                            Usual wake up time{" "}
+                                                        </Typography>
+
+                                                        <TimePicker
+                                                            label=""
+                                                            value={wakeValue}
+                                                            onChange={
+                                                                handleWakeChange
+                                                            }
+                                                            renderInput={(
+                                                                params
+                                                            ) => (
+                                                                <TextField
+                                                                    {...params}
+                                                                />
+                                                            )}
+                                                        />
+                                                    </LocalizationProvider>
+                                                    <br />
+
+                                                    <Box sx={{ minWidth: 120 }}>
+                                                        <FormControl fullWidth>
+                                                            <InputLabel id="demo-simple-select-label">
+                                                                Studying
+                                                                Technique
+                                                            </InputLabel>
+                                                            <Select
+                                                                labelId="demo-simple-select-label"
+                                                                id="demo-simple-select"
+                                                                studyTechniqueValue={
+                                                                    technique
+                                                                }
+                                                                label="Techniques"
+                                                                onChange={
+                                                                    handleTechniqueChange
+                                                                }
+                                                            >
+                                                                <MenuItem
+                                                                    value={
+                                                                        "Pomodoro"
+                                                                    }
+                                                                >
+                                                                    Pomodoro
+                                                                </MenuItem>
+                                                                <MenuItem
+                                                                    value={
+                                                                        "traditional"
+                                                                    }
+                                                                >
+                                                                    Traditional
+                                                                    Studying
+                                                                    Style with
+                                                                    few hour
+                                                                    gaps
+                                                                </MenuItem>
+                                                                <MenuItem
+                                                                    value={
+                                                                        "automated"
+                                                                    }
+                                                                >
+                                                                    Automated
+                                                                </MenuItem>
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Box>
+
+                                                    <br />
+
+                                                    <Typography>
+                                                        {" "}
+                                                        Downtime range
+                                                    </Typography>
+                                                    <LocalizationProvider
+                                                        dateAdapter={
+                                                            AdapterDayjs
+                                                        }
+                                                        localeText={{
+                                                            start: "Starting time",
+                                                            end: "Ending time",
+                                                        }}
+                                                    >
+                                                        <DateRangePicker
+                                                            value={
+                                                                downTimeValue
+                                                            }
+                                                            onChange={(
+                                                                newValue
+                                                            ) => {
+                                                                setDownTimeValue(
+                                                                    newValue
+                                                                );
+                                                            }}
+                                                            renderInput={(
+                                                                startProps,
+                                                                endProps
+                                                            ) => (
+                                                                <React.Fragment>
+                                                                    <TextField
+                                                                        {...startProps}
+                                                                    />
+                                                                    <Box
+                                                                        sx={{
+                                                                            mx: 2,
+                                                                        }}
+                                                                    >
+                                                                        {" "}
+                                                                        to{" "}
+                                                                    </Box>
+                                                                    <TextField
+                                                                        {...endProps}
+                                                                    />
+                                                                </React.Fragment>
+                                                            )}
+                                                        />
+                                                    </LocalizationProvider>
+                                                </Drawer>
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+                                </Toolbar>
+                            </Container>
+                        </AppBar>
+                    )}
+                    {!user && (
+                        <AppBar position="static">
+                            <Container maxWidth="xl">
+                                <Toolbar>
+                                    <AdbIcon
+                                        sx={{
+                                            display: { xs: "none", md: "flex" },
+                                            mr: 1,
+                                        }}
+                                    />
+                                    <Typography
+                                        variant="h6"
+                                        noWrap
+                                        component="a"
+                                        href="/"
+                                        sx={{
+                                            mr: 2,
+                                            display: { xs: "none", md: "flex" },
+                                            fontFamily: "monospace",
+                                            fontWeight: 700,
+                                            letterSpacing: ".3rem",
+                                            color: "inherit",
+                                            textDecoration: "none",
+                                        }}
+                                    >
+                                        Cram Tracker - Tools For Cramming
+                                    </Typography>
+                                    <Box
+                                        component="div"
+                                        sx={{ flexGrow: 1 }}
+                                    ></Box>
+                                    <Link
+                                        href={{
+                                            pathname: "/auth/login",
+                                        }}
+                                    >
+                                        <Button
+                                            align="right"
+                                            variant="outlined"
+                                            color="inherit"
+                                            // style={}
+                                            className="btn"
+                                        >
+                                            Login
+                                        </Button>
+                                    </Link>
+                                    <IconButton
+                                        sx={{ ml: 1 }}
+                                        onClick={colorMode.toggleColorMode}
+                                        color="inherit"
+                                    >
+                                        {theme.palette.mode === "dark" ? (
+                                            <NightlightTwoToneIcon />
+                                        ) : (
+                                            <LightModeTwoToneIcon />
+                                        )}
+                                    </IconButton>
+                                    <div>
+                                        {(["right"] as const).map((anchor) => (
+                                            <React.Fragment key={anchor}>
+                                                <IconButton
+                                                    onClick={toggleDrawer(
+                                                        anchor,
+                                                        true
+                                                    )}
+                                                >
+                                                    <MenuTwoToneIcon />
+                                                </IconButton>
+
+                                                <Drawer
+                                                    anchor={anchor}
+                                                    open={state[anchor]}
+                                                    onClose={toggleDrawer(
+                                                        anchor,
+                                                        false
+                                                    )}
+                                                >
+                                                    {list(anchor)}
+                                                    <Typography>
+                                                        Assigment due date and
+                                                        time{" "}
+                                                    </Typography>
+                                                    <LocalizationProvider
+                                                        dateAdapter={
+                                                            AdapterDayjs
+                                                        }
+                                                    >
+                                                        <DateTimePicker
+                                                            label=""
+                                                            value={dayValue}
+                                                            onChange={
+                                                                handleDayChange
+                                                            }
+                                                            renderInput={(
+                                                                params
+                                                            ) => (
+                                                                <TextField
+                                                                    {...params}
+                                                                />
+                                                            )}
+                                                        />
+                                                        <br />
+
+                                                        <Typography>
+                                                            {" "}
+                                                            Usual sleep time
+                                                        </Typography>
+                                                        <TimePicker
+                                                            label=""
+                                                            value={dayValue}
+                                                            onChange={
+                                                                handleSleepChange
+                                                            }
+                                                            renderInput={(
+                                                                params
+                                                            ) => (
+                                                                <TextField
+                                                                    {...params}
+                                                                />
+                                                            )}
+                                                        />
+                                                        <br />
+                                                        <Typography>
+                                                            {" "}
+                                                            Usual wake up time{" "}
+                                                        </Typography>
+
+                                                        <TimePicker
+                                                            label=""
+                                                            value={wakeValue}
+                                                            onChange={
+                                                                handleWakeChange
+                                                            }
+                                                            renderInput={(
+                                                                params
+                                                            ) => (
+                                                                <TextField
+                                                                    {...params}
+                                                                />
+                                                            )}
+                                                        />
+                                                    </LocalizationProvider>
+                                                    <br />
+
+                                                    <Box sx={{ minWidth: 120 }}>
+                                                        <FormControl fullWidth>
+                                                            <InputLabel id="demo-simple-select-label">
+                                                                Studying
+                                                                Technique
+                                                            </InputLabel>
+                                                            <Select
+                                                                labelId="demo-simple-select-label"
+                                                                id="demo-simple-select"
+                                                                studyTechniqueValue={
+                                                                    technique
+                                                                }
+                                                                label="Techniques"
+                                                                onChange={
+                                                                    handleTechniqueChange
+                                                                }
+                                                            >
+                                                                <MenuItem
+                                                                    value={
+                                                                        "Pomodoro"
+                                                                    }
+                                                                >
+                                                                    Pomodoro
+                                                                </MenuItem>
+                                                                <MenuItem
+                                                                    value={
+                                                                        "traditional"
+                                                                    }
+                                                                >
+                                                                    Traditional
+                                                                    Studying
+                                                                    Style with
+                                                                    few hour
+                                                                    gaps
+                                                                </MenuItem>
+                                                                <MenuItem
+                                                                    value={
+                                                                        "automated"
+                                                                    }
+                                                                >
+                                                                    Automated
+                                                                </MenuItem>
+                                                            </Select>
+                                                        </FormControl>
+                                                    </Box>
+
+                                                    <br />
+
+                                                    <Typography>
+                                                        {" "}
+                                                        Downtime range
+                                                    </Typography>
+                                                    <LocalizationProvider
+                                                        dateAdapter={
+                                                            AdapterDayjs
+                                                        }
+                                                        localeText={{
+                                                            start: "Starting time",
+                                                            end: "Ending time",
+                                                        }}
+                                                    >
+                                                        <DateRangePicker
+                                                            value={
+                                                                downTimeValue
+                                                            }
+                                                            onChange={(
+                                                                newValue
+                                                            ) => {
+                                                                setDownTimeValue(
+                                                                    newValue
+                                                                );
+                                                            }}
+                                                            renderInput={(
+                                                                startProps,
+                                                                endProps
+                                                            ) => (
+                                                                <React.Fragment>
+                                                                    <TextField
+                                                                        {...startProps}
+                                                                    />
+                                                                    <Box
+                                                                        sx={{
+                                                                            mx: 2,
+                                                                        }}
+                                                                    >
+                                                                        {" "}
+                                                                        to{" "}
+                                                                    </Box>
+                                                                    <TextField
+                                                                        {...endProps}
+                                                                    />
+                                                                </React.Fragment>
+                                                            )}
+                                                        />
+                                                    </LocalizationProvider>
+                                                </Drawer>
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+                                </Toolbar>
+                            </Container>
+                        </AppBar>
+                    )}
                     {/* here put drawer */}
 
                     <Box sx={{ display: "flex" }}>

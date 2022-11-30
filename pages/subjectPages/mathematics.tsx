@@ -66,7 +66,7 @@ import { auth, logout } from "../../firebaseConfig";
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 const drawerWidth = 175;
 
-function Mathematics(users) {
+function Mathematics() {
     const [user, setUser] = useAuthState(auth);
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
@@ -91,13 +91,13 @@ function Mathematics(users) {
     );
 
     const handleDayChange = (newValue: Dayjs | null) => {
-        React.setDayValue(newValue);
+        setDayValue(newValue);
     };
     const handleWakeChange = (newValue: Dayjs | null) => {
-        React.setWakeValue(newValue);
+        setWakeValue(newValue);
     };
     const handleSleepChange = (newValue: Dayjs | null) => {
-        React.setSleepValue(newValue);
+        setSleepValue(newValue);
     };
 
     const [downTimeValue, setDownTimeValue] = React.useState<DateRange<Dayjs>>([
@@ -272,9 +272,8 @@ function Mathematics(users) {
                                                 >
                                                     {list(anchor)}
                                                     <Typography>
-                                                        Choose Assigment
-                                                        submission date and
-                                                        time.{" "}
+                                                        Assigment due date and
+                                                        time{" "}
                                                     </Typography>
                                                     <LocalizationProvider
                                                         dateAdapter={
@@ -299,12 +298,11 @@ function Mathematics(users) {
 
                                                         <Typography>
                                                             {" "}
-                                                            Constant Sleeping
-                                                            time
+                                                            Usual sleep time
                                                         </Typography>
                                                         <TimePicker
                                                             label=""
-                                                            value={sleepValue}
+                                                            value={dayValue}
                                                             onChange={
                                                                 handleSleepChange
                                                             }
@@ -407,7 +405,7 @@ function Mathematics(users) {
                                                             onChange={(
                                                                 newValue
                                                             ) => {
-                                                                React.setDownTimeValue(
+                                                                setDownTimeValue(
                                                                     newValue
                                                                 );
                                                             }}
@@ -521,9 +519,8 @@ function Mathematics(users) {
                                                 >
                                                     {list(anchor)}
                                                     <Typography>
-                                                        Choose Assigment
-                                                        submission date and
-                                                        time.{" "}
+                                                        Assigment due date and
+                                                        time{" "}
                                                     </Typography>
                                                     <LocalizationProvider
                                                         dateAdapter={
@@ -548,8 +545,7 @@ function Mathematics(users) {
 
                                                         <Typography>
                                                             {" "}
-                                                            Constant Sleeping
-                                                            time
+                                                            Usual sleep time
                                                         </Typography>
                                                         <TimePicker
                                                             label=""
@@ -573,7 +569,7 @@ function Mathematics(users) {
 
                                                         <TimePicker
                                                             label=""
-                                                            value={dayValue}
+                                                            value={wakeValue}
                                                             onChange={
                                                                 handleWakeChange
                                                             }
@@ -656,7 +652,7 @@ function Mathematics(users) {
                                                             onChange={(
                                                                 newValue
                                                             ) => {
-                                                                React.setDownTimeValue(
+                                                                setDownTimeValue(
                                                                     newValue
                                                                 );
                                                             }}
