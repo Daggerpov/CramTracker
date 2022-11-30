@@ -109,14 +109,17 @@ export default function Dashboard() {
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
 
+    const [priority, setPriority] = React.useState(1);
+    
+    const handlePriorityChange = (event: SelectChangeEvent) => {
+        setPriority(event.target.value as number);
+    };
+    
+    const [technique, setTechnique] = React.useState("");
+
     const handleTechniqueChange = (event: SelectChangeEvent) => {
         setTechnique(event.target.value as string);
     };
-    const openInNewTab = (url) => {
-        window.open(url, "_blank", "noopener,noreferrer");
-    };
-
-    const [technique, setTechnique] = React.useState("");
 
     const [dayValue, setDayValue] = React.useState<Dayjs | null>(
         dayjs("2014-08-18T21:11:54")
@@ -146,6 +149,10 @@ export default function Dashboard() {
     const [state, setState] = React.useState({
         right: false,
     });
+
+    const openInNewTab = (url) => {
+        window.open(url, "_blank", "noopener,noreferrer");
+    };
 
     const [Todolist, setTodoList] = React.useState([]);
     const [input, setInput] = React.useState("");
@@ -951,40 +958,34 @@ export default function Dashboard() {
                                             </LocalizationProvider>
                                             <br />
 
-                                            <Box sx={{ minWidth: 120 }}>
+                                            <Box sx={{ width: 100 }}>
                                                 <FormControl fullWidth>
                                                     <InputLabel id="demo-simple-select-label">
-                                                        Studying Technique
+                                                        Priority
                                                     </InputLabel>
                                                     <Select
                                                         labelId="demo-simple-select-label"
                                                         id="demo-simple-select"
-                                                        studyTechniqueValue={
-                                                            technique
-                                                        }
+                                                        value={priority}
                                                         label="Techniques"
                                                         onChange={
-                                                            handleTechniqueChange
+                                                            handlePriorityChange
                                                         }
                                                     >
-                                                        <MenuItem
-                                                            value={"Pomodoro"}
-                                                        >
-                                                            Pomodoro
+                                                        <MenuItem value={1}>
+                                                            1
                                                         </MenuItem>
-                                                        <MenuItem
-                                                            value={
-                                                                "traditional"
-                                                            }
-                                                        >
-                                                            Traditional Studying
-                                                            Style with few hour
-                                                            gaps
+                                                        <MenuItem value={2}>
+                                                            2
                                                         </MenuItem>
-                                                        <MenuItem
-                                                            value={"automated"}
-                                                        >
-                                                            Automated
+                                                        <MenuItem value={3}>
+                                                            3
+                                                        </MenuItem>
+                                                        <MenuItem value={4}>
+                                                            4
+                                                        </MenuItem>
+                                                        <MenuItem value={5}>
+                                                            5
                                                         </MenuItem>
                                                     </Select>
                                                 </FormControl>
