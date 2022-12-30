@@ -62,8 +62,7 @@ import dayjs, { Dayjs } from "dayjs";
 import styles from "../styles/Home.module.css";
 import { Button } from "@material-tailwind/react";
 
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, logout } from "../firebaseConfig";
+import {useSession, signIn, signOut} from "next-auth/react";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 const drawerWidth = 175;
@@ -105,7 +104,7 @@ function createData(name: string, subject: string) {
 }
 
 export default function Dashboard() {
-    const [user, setUser] = useAuthState(auth);
+    const {data: session} = useSession();
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
 
@@ -154,7 +153,7 @@ export default function Dashboard() {
         window.open(url, "_blank", "noopener,noreferrer");
     };
 
-    const [Todolist, setTodoList] = React.useState([]);
+    const [todoList, setTodoList] = React.useState([]);
     const [input, setInput] = React.useState("");
 
     const addTodo = (todo) => {
@@ -166,7 +165,7 @@ export default function Dashboard() {
         };
 
         // add the todo to the list
-        setTodoList([...Todolist, newTodo]);
+        setTodoList([...todoList, newTodo]);
 
         // clear input box
         setInput("");
@@ -174,7 +173,7 @@ export default function Dashboard() {
 
     const deleteTodo = (id) => {
         // Filter out todo with the id
-        const newList = Todolist.filter((todo) => todo.id !== id);
+        const newList = todoList.filter((todo) => todo.id !== id);
 
         setTodoList(newList);
     };
@@ -234,7 +233,7 @@ export default function Dashboard() {
                     />
                 </Head>
                 <main className={styles.main}>
-                    {user && (
+                    {session && (
                         <AppBar position="static">
                             <Container maxWidth="xl">
                                 <Toolbar>
@@ -279,11 +278,11 @@ export default function Dashboard() {
                                         textAlign="center"
                                         sx={{ mr: "5px" }}
                                     >
-                                        {auth.currentUser.displayName}
+                                        {session.user.name}
                                     </Typography>
                                     <Avatar
                                         alt="Google Photo/Initial"
-                                        src={auth.currentUser.photoURL}
+                                        src={session.user.image}
                                     />
 
                                     <Button
@@ -500,7 +499,7 @@ export default function Dashboard() {
                             </Container>
                         </AppBar>
                     )}
-                    {!user && (
+                    {!session && (
                         <AppBar position="static">
                             <Container maxWidth="xl">
                                 <Toolbar>
@@ -997,7 +996,7 @@ export default function Dashboard() {
                                                 Add
                                             </button>
                                             <ul>
-                                                {Todolist.map((todo) => (
+                                                {todoList.map((todo) => (
                                                     <li key={todo.id}>
                                                         {todo.todo}
                                                         <button
