@@ -16,6 +16,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Install the packages outlined in `package.json` by running the `yarn` command.
+
 First, run the development server:
 
 ```bash
