@@ -1,15 +1,8 @@
 // @ts-nocheck
 
 import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
 import Image from "next/image";
-import {
-    auth,
-    registerWithEmailAndPassword,
-    signInWithGithub,
-    signInWithGoogle,
-} from "../../firebaseConfig";
 
 import styles from "../../styles/Home.module.css";
 import Router from "next/router";

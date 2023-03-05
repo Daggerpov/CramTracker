@@ -289,7 +289,7 @@ export default function Dashboard() {
                                         sx={{ px: "15px" }}
                                         // style={}
                                         onClick={() => {
-                                            logout();
+                                            signOut();
                                         }}
                                         color="inherit"
                                         variant="outlined"
@@ -530,21 +530,19 @@ export default function Dashboard() {
                                         component="div"
                                         sx={{ flexGrow: 1 }}
                                     ></Box>
-                                    <Link
-                                        href={{
-                                            pathname: "/auth/login",
+                                    
+                                    <Button
+                                        sx={{ px: "15px" }}
+                                        // style={}
+                                        onClick={() => {
+                                            signIn();
                                         }}
+                                        color="inherit"
+                                        variant="outlined"
+                                        className="btn"
                                     >
-                                        <Button
-                                            align="right"
-                                            variant="outlined"
-                                            color="inherit"
-                                            // style={}
-                                            className="btn"
-                                        >
-                                            Login
-                                        </Button>
-                                    </Link>
+                                        Sign In
+                                    </Button>
                                     <IconButton
                                         sx={{ ml: 1 }}
                                         onClick={colorMode.toggleColorMode}
