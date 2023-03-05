@@ -8,6 +8,8 @@ Our most exciting feature to sprout from having authenticated users is the abili
 
 # Development
 
+[Project Kanban Board of Tasks](https://github.com/users/Daggerpov/projects/4)
+
 1. For now, ***make sure you are using the `back-to-firebase` git branch*** rather than the main one
     - This is because authentication is being refactored in the main branch to switch from Firebase Authentication to nextAuth.js. 
   
