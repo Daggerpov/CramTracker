@@ -10,6 +10,8 @@ import styles from "../../styles/Home.module.css";
 
 import { Button } from "@material-tailwind/react";
 
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
 import Container from "@mui/material/Container";
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -64,8 +66,16 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 import YoutubeEmbed from "../../components/youtubeEmbed";
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 const drawerWidth = 175;
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
 
 function Mathematics() {
     const { data: session } = useSession();
@@ -125,17 +135,17 @@ function Mathematics() {
 
     const toggleDrawer =
         (anchor: Anchor, open: boolean) =>
-        (event: React.KeyboardEvent | React.MouseEvent) => {
-            if (
-                event.type === "keydown" &&
-                ((event as React.KeyboardEvent).key === "Tab" ||
-                    (event as React.KeyboardEvent).key === "Shift")
-            ) {
-                return;
-            }
+            (event: React.KeyboardEvent | React.MouseEvent) => {
+                if (
+                    event.type === "keydown" &&
+                    ((event as React.KeyboardEvent).key === "Tab" ||
+                        (event as React.KeyboardEvent).key === "Shift")
+                ) {
+                    return;
+                }
 
-            setState({ ...state, [anchor]: open });
-        };
+                setState({ ...state, [anchor]: open });
+            };
 
     const list = (anchor: Anchor) => (
         <Box
@@ -822,26 +832,37 @@ function Mathematics() {
                     </Box>
                     <YoutubeEmbed
                         embedId="Gh48aOvWcxw"
-                        width="400"
-                        height="200"
+                        width="853"
+                        height="480"
                     />
 
                     <Box>
-                        <YoutubeEmbed
-                            embedId="Gh48aOvWcxw"
-                            width="400"
-                            height="200"
-                        />
-                        <YoutubeEmbed
-                        embedId="Gh48aOvWcxw"
-                        width="400"
-                        height="200"
-                        />
-                        <YoutubeEmbed
-                            embedId="Gh48aOvWcxw"
-                            width="400"
-                            height="200"
-                        />
+                        <Stack direction="row" spacing={2}>
+                            <Item>
+                                <YoutubeEmbed
+                                    embedId="Gh48aOvWcxw"
+                                    width="100"
+                                    height="50"
+                                />
+                            </Item>
+                            <Item>
+                                <YoutubeEmbed
+                                    embedId="Gh48aOvWcxw"
+                                    width="100"
+                                    height="50"
+                                />
+                            </Item>
+                            <Item>
+                                <YoutubeEmbed
+                                    embedId="Gh48aOvWcxw"
+                                    width="50"
+                                    height="25"
+                                />
+                            </Item>
+                        </Stack>
+                        
+                        
+                        
 
 
 
