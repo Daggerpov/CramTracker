@@ -23,7 +23,6 @@ import Tooltip from "@mui/material/Tooltip";
 import LightModeTwoToneIcon from "@mui/icons-material/LightModeTwoTone";
 import NightlightIcon from "@mui/icons-material/Nightlight";
 import NightlightTwoToneIcon from "@mui/icons-material/NightlightTwoTone";
-import { Button } from "@material-tailwind/react";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -826,7 +825,6 @@ function Mathematics() {
                         width="400"
                         height="200"
                     />
-                    {/* Past this point is where to put content */}
                 </main>
             </div>
         </Box>
