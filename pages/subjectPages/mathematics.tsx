@@ -63,6 +63,8 @@ import dayjs, { Dayjs } from "dayjs";
 
 import { useSession, signIn, signOut } from "next-auth/react";
 
+import YoutubeEmbed from "../../components/youtubeEmbed";
+
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 const drawerWidth = 175;
 
@@ -807,20 +809,26 @@ function Mathematics() {
                             </Box>
                         </Drawer>
                     </Box>
+                    {/* Past this point is where to put content */}
+                    <Box textAlign="right">
+                        <LightTooltip title="Symbolab">
+                            <Button
+                                onClick={() => {
+                                    openInNewTab("https://www.symbolab.com/");
+                                }}
+                            >
+                                Symbolab
+                            </Button>
+                        </LightTooltip>
+                    </Box>
+                    <YoutubeEmbed
+                        embedId="Gh48aOvWcxw"
+                        width="400"
+                        height="200"
+                    />
+                    {/* Past this point is where to put content */}
                 </main>
             </div>
-
-            <Box textAlign="center">
-                <LightTooltip title="Symbolab">
-                    <Button
-                        onClick={() => {
-                            openInNewTab("https://www.symbolab.com/");
-                        }}
-                    >
-                        Symbolab
-                    </Button>
-                </LightTooltip>
-            </Box>
         </Box>
     );
 }

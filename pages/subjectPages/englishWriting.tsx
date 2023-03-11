@@ -793,6 +793,7 @@ function EnglishWriting() {
                             </Box>
                         </Drawer>
                     </Box>
+                    {/* Past this point is where to put content */}
                 </main>
             </div>
         </Box>
