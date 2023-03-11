@@ -825,6 +825,28 @@ function Mathematics() {
                         width="400"
                         height="200"
                     />
+
+                    <Box>
+                        <YoutubeEmbed
+                            embedId="Gh48aOvWcxw"
+                            width="400"
+                            height="200"
+                        />
+                        <YoutubeEmbed
+                        embedId="Gh48aOvWcxw"
+                        width="400"
+                        height="200"
+                        />
+                        <YoutubeEmbed
+                            embedId="Gh48aOvWcxw"
+                            width="400"
+                            height="200"
+                        />
+
+
+
+                    </Box>
+                    {/* Past this point is where to put content */}
                 </main>
             </div>
         </Box>
