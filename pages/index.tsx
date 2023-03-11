@@ -6,6 +6,10 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 
+import styles from "../styles/Home.module.css";
+
+import { Button } from "@material-tailwind/react";
+
 import Container from "@mui/material/Container";
 import MenuIcon from "@mui/icons-material/Menu";
 import AdbIcon from "@mui/icons-material/Adb";
@@ -59,8 +63,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 import dayjs, { Dayjs } from "dayjs";
-import styles from "../styles/Home.module.css";
-import { Button } from "@material-tailwind/react";
 
 import { useSession, signIn, signOut } from "next-auth/react";
 
@@ -105,6 +107,7 @@ function createData(name: string, subject: string) {
 
 export default function Dashboard() {
     const { data: session } = useSession();
+
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
 

@@ -6,6 +6,10 @@ import Image from "next/image";
 import Head from "next/head";
 import Link from "next/link";
 
+import styles from "../../styles/Home.module.css";
+
+import { Button } from "@material-tailwind/react";
+
 import Container from "@mui/material/Container";
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -48,24 +52,21 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs, { Dayjs } from "dayjs";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import {
     DateRangePicker,
     DateRange,
 } from "@mui/x-date-pickers-pro/DateRangePicker";
 
-import styles from "../../styles/Home.module.css";
-import { Button } from "@material-tailwind/react";
+import dayjs, { Dayjs } from "dayjs";
 
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, logout } from "../../firebaseConfig";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 const drawerWidth = 175;
 
 function EnglishWriting() {
-    const [user, setUser] = useAuthState(auth);
+    const { data: session } = useSession();
 
     const theme = useTheme();
     const colorMode = React.useContext(ColorModeContext);
@@ -162,7 +163,7 @@ function EnglishWriting() {
                     />
                 </Head>
                 <main className={styles.main}>
-                    {user && (
+                    {session && (
                         <AppBar position="static">
                             <Container maxWidth="xl">
                                 <Toolbar>
@@ -428,7 +429,7 @@ function EnglishWriting() {
                             </Container>
                         </AppBar>
                     )}
-                    {!user && (
+                    {!session && (
                         <AppBar position="static">
                             <Container maxWidth="xl">
                                 <Toolbar>

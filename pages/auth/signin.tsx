@@ -5,7 +5,7 @@ import type {
 } from "next";
 import { getProviders, signIn } from "next-auth/react";
 import { unstable_getServerSession } from "next-auth/next";
-import { authOptions } from "../api/auth/[...nextauth]";
+import { authOptions } from "../api/auth/[...nextAuth]";
 import Google from "next-auth/providers/google";
 
 import GoogleIcon from "@mui/icons-material/Google";
