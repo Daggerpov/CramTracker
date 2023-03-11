@@ -843,7 +843,6 @@ function Physics() {
                             </ImageListItem>
                         ))}
                     </ImageList>
-                    </main
                 </main>
             </div>
         </Box>
