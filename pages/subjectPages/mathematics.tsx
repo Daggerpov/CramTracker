@@ -832,8 +832,7 @@ function Mathematics() {
                     </Box>
                     <YoutubeEmbed
                         embedId="Gh48aOvWcxw"
-                        width="853"
-                        height="480"
+                        width="800"
                     />
 
                     <Box>
