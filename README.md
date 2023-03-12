@@ -10,13 +10,6 @@ Our most exciting feature to sprout from having authenticated users is the abili
 
 ### [Project Kanban Board of Tasks](https://github.com/users/Daggerpov/projects/4)
 
-## Temporary Must-Read:
-
-1. For now, ***make sure you are using the `back-to-firebase` git branch*** rather than the main one
-    - This is because authentication is being refactored in the main branch to switch from Firebase Authentication to nextAuth.js. 
-  
-2. Within this branch, you'll need to ***paste the private `.env` file found on our project's discord server***
-
 ## Commands to work with a project that uses yarn (instead of npm):
 - `yarn` (similar to npm init)installs the package versions defined in the package.json file to your machine, generating a yarn.lock file. <ins>You'll need to do this after cloning the repo on your computer.</ins>
 -  `yarn add [package name]` (similar to npm install [package name] adds a package, in case some tutorial or something necessitates it, which you then import into the file
